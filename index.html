@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="script.js"></script>
+    <style>
+     body {
+       margin: 0px;
+       background: rgba(0,158,0,0.25);
+     }
+
+     #A {
+       display: grid;
+       grid-template-columns: max-content 2fr max-content max-content 1fr max-content max-content;
+       gap: 0ch 0ch;
+       background: white;
+     }
+
+     progress {
+       width: 100%;
+     }
+
+     .goel {
+       display: contents;
+     }
+
+     label {
+       grid-column: 1;
+       text-align: right;
+     }
+
+     .dayweek-bar {
+       //grid-column: 2 / 6;
+     }
+
+     .dayweek-unit {
+       grid-column: 4 / 8;
+     }
+
+     .goel > * {
+       padding: 0.1ch 0.5ch;
+     }
+
+     .goel > *:first-child {
+       padding-left: 3ch;
+     }
+
+     .goel > *:last-child {
+       padding-right: 3ch;
+     }
+
+     .goel:first-child > * {
+       padding-top: 1em;
+     }
+
+     .number {
+       text-align: right;
+     }
+
+     .goel.red > * {
+       background: rgba(202,18,18,0.25);
+     }
+
+     .goel.orange > * {
+       background: rgba(226,135,6,0.25);
+     }
+
+     .goel.blue > * {
+       background: rgba(18,91,202,0.25);
+     }
+
+     .goel.green > * {
+       background: rgba(0,158,0,0.25);
+     }
+
+     .goel.dkgreen > * {
+       background: rgba(34,140,34,0.35);
+     }
+
+     .goel.red:hover > * {
+       background: rgba(202,18,18,0.15);
+     }
+
+     .goel.orange:hover > * {
+       background: rgba(226,135,6,0.15);
+     }
+
+     .goel.blue:hover > * {
+       background: rgba(18,91,202,0.15);
+     }
+
+     .goel.green:hover > * {
+       background: rgba(0,158,0,0.15);
+     }
+
+     .goel.dkgreen:hover > * {
+       background: rgba(34,140,34,0.25);
+     }
+
+     #Message {
+       padding: 2em;
+     }
+
+     #Conf {
+       height: 4em;
+       width: 80ch;
+       margin-bottom: 0.5em;
+     }
+    </style>
+  </head>
+  <body>
+    <div id="A"></div>
+    <div id="Message">&nbsp;</div>
+    <div style="text-align: center">
+      <form>
+        <button id="Reload" onclick="javascript:reload()">update</button>
+      </form>
+      <form id="Conf_form" action="javascript:configure()" style="display: none">
+        <br />
+        Please enter both username and auth_token as JSON from
+        <a target="_blank" href="https://www.beeminder.com/api/v1/auth_token.json">Beeminder</a>
+        <br />
+        <textarea id="Conf" placeholder="{&quot;username&quot;: ..., &quot;auth_token&quot;: ...}"></textarea>
+        <br />
+        <button type="submit">save credentials</button>
+      </form>
+    </div>
+  </body>
+</html>
