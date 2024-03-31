@@ -125,8 +125,9 @@ async function get_goals() {
     } catch (Error) {
         Message.innerText = Error;
         throw Error;
+    } finally {
+        Reload.disabled = false;
     }
-    Reload.disabled = false;
 }
 
 function reload() {
