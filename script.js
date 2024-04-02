@@ -40,7 +40,7 @@ function add_today(goal) {
     }
 }
 
-function add_progress(parent, class_prefix, min, max, value, unit_text) {
+function add_progress(parent, class_prefix, min, max, value, unit_text, row) {
     let p = document.createElement('progress');
     let pp = document.createElement('span');
     pp.append(p);
@@ -48,30 +48,49 @@ function add_progress(parent, class_prefix, min, max, value, unit_text) {
     pp.title = value + ' ' + unit_text;
     let number = document.createElement('span');
     number.className = 'number ' + class_prefix + '-number';
+    number.style.gridRow = row;
     let unit = document.createElement('span');
-    unit.className = class_prefix + '-unit';
+    unit.className = 'unit ' + class_prefix + '-unit';
+    unit.style.gridRow = row;
+
     if (value < max) {
         number.innerText = Math.ceil(max - value);
         unit.innerText = unit_text;
     }
     p.max = max - min;
     p.value = value - min;
-    parent.append(pp, number, unit);
+    add_progress2(parent, class_prefix, min, max, value, unit_text, row);
+    parent.append(number, unit);
 }
 
-function show_progress(goal) {
+
+function add_progress2(parent, class_prefix, min, max, value, unit_text, row) {
+    let bar = document.createElement('div');
+    bar.className = class_prefix + '-bar bar';
+    bar.style.gridRow = row;
+    bar.title = value + ' ' + unit_text;
+
+    progress = document.createElement('div');
+    progress.className = 'progress';
+    progress.style.width = `${100 * (value - min) / (max - min)}%`;
+    bar.append(progress);
+    parent.append(bar);
+}
+
+function show_progress(goal, i) {
+    let row = i + 1;
     let goel = document.createElement('div');
-    goel.className = 'goel';
     let label = document.createElement('label');
-    label.innerText = goal.slug + ':';
-    goel.className = 'goel ' + goal.roadstatuscolor;
-    goel.append(label);
+    label.innerText = goal.slug + '';
+    label.style.gridRow = row;
+    goel.className = 'goel ' + 'buf-' + (goal.safebuf < 3 ? goal.safebuf : goal.safebuf < 8 ? 3 : 8);
     if (goal.week <= goal.maxrate) {
-        add_progress(goel, 'dayweek', 0, goal.maxrate, goal.today, goal.gunits);
+        add_progress(goel, 'day', 0, goal.maxrate, goal.today, goal.gunits, row);
     } else {
-        add_progress(goel, 'day', 0, goal.maxrate, goal.today, goal.gunits);
-        add_progress(goel, 'week', goal.maxrate, goal.week, goal.today, goal.gunits);
+        add_progress(goel, 'day', 0, goal.maxrate, goal.today, goal.gunits, row);
+        add_progress(goel, 'week', goal.maxrate, goal.week, goal.today, goal.gunits, row);
     }
+    goel.append(label);
     A.append(goel);
 }
 
