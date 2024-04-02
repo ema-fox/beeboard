@@ -7,119 +7,11 @@
      body {
        background: oklch(0.8 0 0);
        font-size: 1.4em;
-     }
-
-     #A {
-       display: grid;
-       grid-template-columns: max-content 2fr max-content 1fr max-content;
-       gap: 0ch 0ch;
-     }
-
-     progress {
-       width: 100%;
+       margin: 0.5em 0px;
      }
 
      .goel {
        display: contents;
-     }
-
-     label {
-       grid-column: 1;
-       margin-left: 5ch;
-       margin-top: 0.7em;
-       z-index: 2;
-       pointer-events: none;
-     }
-
-     .number {
-       text-align: right;
-       margin-top: 0.7em;
-       z-index: 2;
-       pointer-events: none;
-     }
-
-     .unit {
-       margin-left: 1ch;
-       margin-right: 4ch;
-       margin-top: 0.7em;
-       z-index: 2;
-       pointer-events: none;
-     }
-
-     .day-number {
-       grid-column: 2;
-     }
-
-     .day-unit {
-       grid-column: 3;
-     }
-
-     .day-bar {
-       grid-column: 1 / 4;
-     }
-
-     .dayweek-bar {
-       grid-column: 1 / 3;
-     }
-
-     .week-bar {
-       grid-column: 4 / 6;
-     }
-
-     .week-number {
-       grid-column: 4;
-     }
-
-     .week-unit {
-       grid-column: 5;
-     }
-
-     .dayweek-unit {
-       grid-column: 4 / 8;
-     }
-
-     .goel > *:last-child {
-       padding-right: 3ch;
-     }
-
-     .goel.red > * {
-       background: rgba(202,18,18,0.25);
-     }
-
-     .goel.orange > * {
-       background: rgba(226,135,6,0.25);
-     }
-
-     .goel.blue > * {
-       background: rgba(18,91,202,0.25);
-     }
-
-     .goel.green > * {
-       background: rgba(0,158,0,0.25);
-     }
-
-     .goel.dkgreen > * {
-       background: rgba(34,140,34,0.35);
-     }
-
-     .goel.red:hover > * {
-       background: rgba(202,18,18,0.15);
-     }
-
-     .goel.orange:hover > * {
-       background: rgba(226,135,6,0.15);
-     }
-
-     .goel.blue:hover > * {
-       background: rgba(18,91,202,0.15);
-     }
-
-     .goel.green:hover > * {
-       background: rgba(0,158,0,0.15);
-     }
-
-     .goel.dkgreen:hover > * {
-       background: rgba(34,140,34,0.25);
      }
 
      #Message {
@@ -132,70 +24,191 @@
        margin-bottom: 0.5em;
      }
 
-     .bar {
-       margin: 0.5ch 1ch;
+     .chunk-bar {
+       display: flex;
+       //gap: 2px;
+       padding: 3px 0px;
+     }
+
+     .chunk {
        height: 2em;
-       border-radius: 1em;
-       overflow: hidden;
+     }
+
+     .prev-bar .chunk {
+       background: oklch(0.4 0.2 239);
+     }
+
+     .prev-bar .chunk + .chunk {
+       border-left: oklch(0.3 0.2 239) solid 2px;
+     }
+
+     .chunk.today-done {
+       background: oklch(0.53 0.2 239);
+     }
+
+     .chunk.next-done {
+       background: oklch(0.5 0.2 239);
+     }
+
+     .buf-0 .chunk.today-undone {
+       background: oklch(0.6 0.2 24);
+     }
+
+     .buf-0 .chunk.next-undone {
+       background: oklch(0.5 0.2 24);
+     }
+
+     .buf-0 .chunk.today-undone + .chunk.today-undone {
+       border-left: oklch(0.5 0.2 24) solid 2px;
+     }
+
+     .buf-0 .chunk.next-undone + .chunk.next-undone {
+       border-left: oklch(0.4 0.2 24) solid 2px;
+     }
+
+     .buf-1 .chunk.today-undone {
+       background: oklch(0.7 0.2 59);
+     }
+
+     .buf-1 .chunk.next-undone {
+       background: oklch(0.6 0.2 59);
+     }
+
+     .buf-1 .chunk.today-undone + .chunk.today-undone {
+       border-left: oklch(0.6 0.2 59) solid 2px;
+     }
+
+     .buf-1 .chunk.next-undone + .chunk.next-undone {
+       border-left: oklch(0.5 0.2 59) solid 2px;
+     }
+
+
+     .buf-2 .chunk.today-undone {
+       background: oklch(0.8 0.2 94);
+     }
+
+     .buf-2 .chunk.next-undone {
+       background: oklch(0.7 0.2 94);
+     }
+
+     .buf-2 .chunk.today-undone + .chunk.today-undone {
+       border-left: oklch(0.7 0.2 94) solid 2px;
+     }
+
+     .buf-2 .chunk.next-undone + .chunk.next-undone {
+       border-left: oklch(0.6 0.2 94) solid 2px;
+     }
+
+
+     .buf-3 .chunk.today-undone {
+       background: oklch(0.6 0.2 139);
+     }
+
+     .buf-3 .chunk.next-undone {
+       background: oklch(0.5 0.2 139);
+     }
+
+
+     .buf-3 .chunk.today-undone + .chunk.today-undone {
+       border-left: oklch(0.5 0.2 139) solid 2px;
+     }
+
+     .buf-3 .chunk.next-undone + .chunk.next-undone {
+       border-left: oklch(0.4 0.2 139) solid 2px;
+     }
+
+
+     #B {
+       display: grid;
+       grid-template-columns: 1fr 3fr 1fr;
+     }
+
+     .prev-bar {
+       grid-column: 1;
+     }
+
+     .today-bar {
+       grid-column: 2;
        position: relative;
-       border: solid 2px;
-       border-top-color: oklch(0.6 0 0);
-       border-left-color: oklch(0.6 0 0);
-       border-bottom-color: oklch(0.9 0 0);
-       border-right-color: oklch(0.9 0 0);
      }
 
-     .goel:hover .bar {
-       box-shadow: inset 5px 5px 10px rgba(0,0,0,30%);
-     }
-     .goel:hover .progress {
-       box-shadow: 0px 5px 10px rgba(0,0,0,50%), inset 2px 2px 5px rgba(0,0,0,30%);
+     .next-bar {
+       grid-column: 3;
+       position: relative;
      }
 
-     .goel.buf-0 .bar {
-       background: linear-gradient(oklch(0.5 0.2 24), oklch(0.6 0.2 24));
+     .space {
+       flex-grow: 1;
      }
 
-     .goel.buf-0 .progress {
-       //background: linear-gradient(oklch(0.7 0.2 59), oklch(0.6 0.2 59));
-     }
-     .goel.buf-1 .bar {
-       background: linear-gradient(oklch(0.6 0.2 59), oklch(0.7 0.2 59));
-       //background: oklch(0.7 0.2 59);
+     .prev-bar .chunk:first-of-type {
+       border-top-left-radius: 1em;
+       border-bottom-left-radius: 0.2em;
      }
 
-     .goel.buf-1 .progress{
-       //background: oklch(0.9 0.2 94);
-     }
-     .goel.buf-2 .bar {
-       background: linear-gradient(oklch(0.7 0.2 94), oklch(0.9 0.2 94));
+     .next-bar .chunk:last-child {
+       border-top-right-radius: 1em;
+       border-bottom-right-radius: 0.2em;
      }
 
-     .goel.buf-2 .progress {
-       //background: linear-gradient(oklch(0.7 0.2 139), oklch(0.6 0.2 139));
-     }
-     .goel.buf-3 .bar {
-       background: linear-gradient(oklch(0.6 0.2 139), oklch(0.7 0.2 139));
+     label {
+       margin-left: 5ch;
+       margin-top: 0.7em;
      }
 
-     .goel.buf-3 .progress{
-       //background: linear-gradient(oklch(0.6 0.2 239), oklch(0.5 0.2 239));
-     }
-     .goel.buf-8 .bar {
-       background: linear-gradient(oklch(0.5 0.2 239), oklch(0.6 0.2 239));
-     }
-
-     .progress {
-       background: linear-gradient(oklch(0.6 0.2 239), oklch(0.45 0.2 239));
-       height: 2em;
+     .number {
+       text-align: right;
        position: absolute;
-       border-radius: 0.9em;
-       box-shadow: 0px 5px 10px rgba(0,0,0,50%);
+       right: 0px;
+       padding: 0px 0.5ch;
+       background: oklch(0.8 0 0);
      }
+
+     .unit {
+       position: absolute;
+       margin-left: 0px;
+       padding: 0px 0.5ch;
+       background: oklch(0.8 0 0);
+     }
+
+     .today-bar label {
+       position: absolute;
+       padding: 0px 0.5ch;
+       background: oklch(0.8 0 0);
+       border-top-left-radius: 1ch;
+       border-top-right-radius: 1ch;
+     }
+
+     .today-bar .number.day-due {
+       margin-top: 0.7em;
+       border-top-left-radius: 1ch;
+     }
+
+     .next-bar .unit.day-due {
+       margin-top: 0.7em;
+       border-top-right-radius: 1ch;
+     }
+
+
+     .today-bar .number.week-due {
+       border-bottom-left-radius: 1ch;
+     }
+
+     .next-bar .unit.week-due {
+       border-bottom-right-radius: 1ch;
+     }
+
+     .goel:hover .chunk-bar,
+     .goel:hover label,
+     .goel:hover .number,
+     .goel:hover .unit {
+       background: oklch(0.87 0 0);
+     }
+
     </style>
   </head>
   <body>
-    <div id="A"></div>
+    <div id="B"></div>
     <div id="Message">&nbsp;</div>
     <div style="text-align: center">
       <form>
