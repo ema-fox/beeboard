@@ -28,10 +28,14 @@ function add_today(goal) {
     }
 
     goal.today = today;
-    goal.maxrate = Math.max(goal.rate, goal.currate);
+    goal.weekdue = goal.rah - goal.curval;
+
+    goal.days = Object.values(goal.dueby).map(x => x.delta);
+    goal.days.push(goal.weekdue);
+
+    goal.maxrate = Math.max(goal.rate, goal.currate, ...deltas(goal.days));
     goal.fraction = today / goal.maxrate;
 
-    goal.weekdue = goal.rah - goal.curval;
     goal.week = goal.today + goal.weekdue
     goal.weekfraction = goal.today / goal.week;
 
@@ -59,9 +63,7 @@ function buf_class(x) {
 }
 
 function show_progress(goal, i) {
-    let days = Object.values(goal.dueby).map(x => x.delta);
-    days.push(goal.weekdue);
-    let days_adjusted = days.map(x => x + goal.today);
+    let days_adjusted = goal.days.map(x => x + goal.today);
 
     let prev = days_adjusted.filter(x => x <= 0);
     let today = days_adjusted.filter(x => 0 < x && x <= goal.maxrate);
