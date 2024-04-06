@@ -172,7 +172,10 @@ async function get_goals() {
             responses++;
             show_loading();
             console.log(response);
-            for (let goal of response) {
+
+            let goals = response.filter(goal => goal.yaw > 0 && goal.safebuf <= 7);
+
+            for (let goal of goals) {
                 if (goal.todayta) {
                     let todaystamp = goal.recent_data.map(x => x.daystamp).reduce((x, y) => x < y ? y : x);
                     goal.today_data = goal.recent_data.filter(x => x.daystamp === todaystamp);
@@ -192,10 +195,37 @@ async function get_goals() {
             }
             B.innerHTML = '';
 
-            response.forEach(add_today);
-            response.filter(goal => goal.yaw > 0 && goal.safebuf <= 7)
-                .toSorted((a, b) => a.fraction - b.fraction)
-                .forEach(show_progress);
+            goals.forEach(add_today);
+            goals = goals.toSorted((a, b) => a.fraction - b.fraction)
+            let todays = goals.filter(goal => goal.fraction < 1);
+            let tomorrows = goals.filter(goal => 1 <= goal.fraction);
+            if (todays.length) {
+                let today_msg1 = document.createElement('span');
+                let today_msg2 = document.createElement('span');
+                today_msg1.className = 'msg1';
+                today_msg2.className = 'msg2';
+                today_msg1.innerText = "do"
+                today_msg2.innerText = "today"
+                B.append(today_msg1, today_msg2);
+            }
+            todays.forEach(show_progress);
+
+            if (tomorrows.length) {
+                if (todays.length) {
+                    let spacer = document.createElement('div');
+                    spacer.innerHTML = '&nbsp;';
+                    spacer.style.gridColumn = '1 / -1';
+                    B.append(spacer);
+                }
+                let tomorrow_msg1 = document.createElement('span');
+                let tomorrow_msg2 = document.createElement('span');
+                tomorrow_msg1.className = 'msg1';
+                tomorrow_msg2.className = 'msg2';
+                tomorrow_msg1.innerText = "to reach the"
+                tomorrow_msg2.innerText = "akrasia horizon"
+                B.append(tomorrow_msg1, tomorrow_msg2);
+            }
+            tomorrows.forEach(show_progress);
         } else {
             Conf_form.style.display = 'block';
             return;
