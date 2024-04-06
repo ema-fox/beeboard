@@ -62,6 +62,8 @@ function buf_class(x) {
     return 'buf-' + (x < 3 ? x : x < 8 ? 3 : 8)
 }
 
+let formatter = new Intl.NumberFormat('en-US', {style: 'decimal', maximumFractionDigits: 2});
+
 function show_progress(goal, i) {
     let days_adjusted = goal.days.map(x => x + goal.today);
 
@@ -119,7 +121,7 @@ function show_progress(goal, i) {
 
     let number = document.createElement('span');
     number.className = 'number ' + (dayduep ? 'day-due' : 'week-due');
-    number.innerText = dayduep ? Math.min(goal.maxrate - goal.today, goal.weekdue) : goal.weekdue;
+    number.innerText = formatter.format(dayduep ? Math.min(goal.maxrate - goal.today, goal.weekdue) : goal.weekdue);
 
     today_el.append(label, number);
 
