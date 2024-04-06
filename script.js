@@ -193,7 +193,8 @@ async function get_goals() {
             B.innerHTML = '';
 
             response.forEach(add_today);
-            response.filter(goal => goal.safebuf <= 7).toSorted((a, b) => a.fraction - b.fraction)
+            response.filter(goal => goal.yaw > 0 && goal.safebuf <= 7)
+                .toSorted((a, b) => a.fraction - b.fraction)
                 .forEach(show_progress);
         } else {
             Conf_form.style.display = 'block';
