@@ -102,7 +102,7 @@ function show_progress(goal, i) {
     //console.log(goal.slug, goal.today, days, days_adjusted, deltas(prev), deltas(today_done), deltas(today_undone), deltas(next_done), deltas(next_undone));
 
 
-    let hover_text = goal.today + ' ' + goal.gunits;
+    let hover_text = `${goal.today} ${goal.gunits} done today`;
 
     let label = document.createElement('label');
     label.innerText = goal.slug;
